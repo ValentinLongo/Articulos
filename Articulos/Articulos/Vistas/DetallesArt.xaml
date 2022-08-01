@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+                  xmlns:m="clr-namespace:Ubicacion_Articulos.Modelo" 
+                  xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                  x:Class="Ubicacion_Articulos.Vistas.DetallesArt"
+                  Title="Detalle Articulo">
+
+
+    <ContentPage.BindingContext>
+        <vm:VMUbicaciones/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <RefreshView x:Name="refreshDetalle" Refreshing="refreshDetalle_Refreshing" IsRefreshing="True">
+            <ScrollView>
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!--<BoxView CornerRadius="10" Color="White"/>-->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0">
+                                    <Label Text="Descripción" FontSize="Large" FontAttributes="Bold" Padding="10,0" TextColor="Black"/>
+                                    <Entry x:Name="txtDescri" IsReadOnly="True" Text="{Binding art_descri}"/>
+                                </StackLayout>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Column="0" Grid.Row="0">
+                                    <Label Text="Adicional" FontSize="Large" FontAttributes="Bold" Padding="10,0" TextColor="Black"/>
+                                    <Entry x:Name="txtAdi_descri" IsReadOnly="True" Text="{Binding adi_descri}"/>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1" Grid.Row="0">
+                                    <Label Text="Código" FontSize="Large" FontAttributes="Bold" TextColor="Black"/>
+                                    <Entry x:Name="txtCodigo" IsReadOnly="True" Text="{Binding Codigo}"/>
+                                    <Entry x:Name="txtCodText" IsVisible="false"/>
+                                    <Entry x:Name="txtCodNum" IsVisible="false"/>
+                                    <Entry x:Name="txtAdi_codigo" IsVisible="false"/>
+                                    <Entry x:Name="txtubi_codigo" IsVisible="false"/>
+                                </StackLayout>
+                                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="120"/>
+                                    </Grid.RowDefinitions>
+                                    <Frame BackgroundColor="#5484C5" Padding="1,0.3" HeightRequest="1" Grid.Row="0">
+                                        <Grid Padding="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="Ubicación" FontSize="15" Padding="1,0" TextColor="White" Grid.Column="0"/>
+                                            <Label Text="Depósito" FontSize="15" Padding="1,0" TextColor="White" Grid.Column="1"/>
+
+
+                                            <BoxView BackgroundColor="White" WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                            <BoxView BackgroundColor="White" WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand"/>
+                                        </Grid>
+                                    </Frame>
+                                    <ListView x:Name="listaUbi" ItemsSource="{Binding ubi}" HasUnevenRows="True" Grid.Row="1"
+                                          IsRefreshing="{Binding IsRefreshing}" RefreshCommand="{Binding RefreshCommad}" IsPullToRefreshEnabled="True">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Frame Padding="0">
+                                                        <Grid Padding="0">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Label Text="{Binding ubicacion}" Grid.Column="0" Padding="5,0" VerticalOptions="Center"/>
+                                                            <Label Text="{Binding deposito}" Grid.Column="1" Padding="0" VerticalOptions="Center"/>
+                                                            <StackLayout Grid.Column="2" Orientation="Horizontal">
+                                                                <CheckBox x:Name="checkUbi" IsChecked="{Binding ubi_predef}" IsEnabled="False" Color="Black" CheckedChanged="checkUbi_CheckedChanged"/>
+                                                                <Button x:Name="btnEditar" Command="{Binding Path=BindingContext.btnEditar, Source={x:Reference listaUbi}}"
+                                                                        CommandParameter="{Binding .}" ImageSource="boton_editar.png" BackgroundColor="White" WidthRequest="30"
+                                                                        Clicked="btnEditar_Clicked"/>
+                                                                <Button x:Name="btnEliminar" Command="{Binding Path=BindingContext.btnEliminar, Source={x:Reference listaUbi}}"
+                                                                        CommandParameter="{Binding .}" ImageSource="boton_eliminar.png" BackgroundColor="White" WidthRequest="30"
+                                                                        Clicked="btnEliminar_Clicked"/>
+                                                                <Button x:Name="btnImprimir" ImageSource="boton_imprimir.png" BackgroundColor="White" WidthRequest="30"
+                                                                        Command="{Binding Path=BindingContext.btnAgUbic, Source={x:Reference listaUbi}}"
+                                                                        CommandParameter="{Binding .}"/>
+                                                            </StackLayout>
+
+                                                            <BoxView BackgroundColor="#5484C5" WidthRequest="1" Grid.Column="0" HorizontalOptions="EndAndExpand"/>
+                                                            <BoxView BackgroundColor="#5484C5" WidthRequest="1" Grid.Column="1" HorizontalOptions="EndAndExpand"/>
+                                                        </Grid>
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.Seleccionarcommand,Source={x:Reference listaUbi}}"
+                                                                  CommandParameter="{Binding .}"/>
+                                                        </Frame.GestureRecognizers>
+                                                    </Frame>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="60" />
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Row="0" x:Name="imgProducto" HeightRequest="250" WidthRequest="300" Margin="10"/>
+                                <!--<Button Grid.Row="2" Text="Continuar" x:Name="btnOK" Clicked="btnOK_Clicked" FontSize="Large" 
+                            WidthRequest="50" Margin="30,0" VerticalOptions="End" BackgroundColor="#5484C5" TextColor="White" 
+                            CornerRadius="10"/>-->
+                                <Button Text="Agregar Ubicación" x:Name="agUbicacion" Grid.Row="1" IsEnabled="True" Margin="30,0" FontSize="Medium"
+                                        WidthRequest="40" HeightRequest="10" Clicked="agUbicacion_Clicked" BackgroundColor="#5484C5" 
+                                        TextColor="White" CornerRadius="10"/>
+                                <!--<Button Text="Predefinir" Command="{Binding Seleccionarcommand}" Grid.Row="2"/>-->
+                            </Grid>
+                        </Grid>
+                        <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

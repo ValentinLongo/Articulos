@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+             x:Class="Ubicacion_Articulos.Vistas.DetallePedido"
+             Title="Detalle del pedido"
+             NavigationPage.HasBackButton="False">
+
+    <ContentPage.BindingContext>
+        <vm:VMDetallePedido/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ListaProducto" ItemsSource="{Binding detalle}" HasUnevenRows="True" ItemTapped="ListaProducto_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0">
+                                <Grid Padding="0">
+                                    <Grid Padding="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Row="0" Grid.Column="0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <!--<ColumnDefinition Width="330"/>
+                                                    <ColumnDefinition Width="auto"/>-->
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackLayout Grid.Column="0">
+                                                    <Label Text="Articulo: " FontSize="16" Grid.Row="0" VerticalOptions="StartAndExpand"/>
+                                                    <Label Text="Adicional: " FontSize="16" Grid.Row="0" VerticalOptions="End"/>
+                                                    <Label Text="Cantidad: " FontSize="16" Grid.Row="1" VerticalOptions="End"/>
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="1" VerticalOptions="CenterAndExpand" Margin="0">
+                                                    <Label Text="{Binding Articulo}" Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="Start" FontSize="15" TextColor="Black"/>
+                                                    <Label Text="{Binding DescAdicional}" Grid.Row="1" TextColor="Black"/>
+                                                    <Label Text="{Binding Cantidad}" Grid.Row="2" VerticalOptions="End" HorizontalOptions="Start" FontSize="15" TextColor="Black"/>
+                                                    <Label Text="{Binding IdPedido}" IsVisible="false"/>
+                                                    <Label Text="{Binding IdArticulos}" IsVisible="false"/>
+                                                    <Label Text="{Binding Adicional}" IsVisible="false"/>
+                                                    <!--<Label Text="{Binding DescAdicional}" IsVisible="false"/>-->
+                                                    <Label Text="{Binding Imagen}" IsVisible="false"/>
+                                                    <Label Text="{Binding Ubicacion}" IsVisible="false"/>
+                                                </StackLayout>
+                                                <StackLayout Grid.Column="2">
+                                                    <CheckBox HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Color="Black" IsChecked="{Binding CantidadPrep}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout>
+                <Label x:Name="Codigo" IsVisible="false"/>
+                <Label x:Name="numUsu" IsVisible="false"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="End">
+                <Button x:Name="btnFinalizar" Text="Finalizar" Clicked="btnFinalizar_Clicked"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

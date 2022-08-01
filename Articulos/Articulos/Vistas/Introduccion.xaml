@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+             x:Class="Ubicacion_Articulos.Vistas.Introduccion"
+             BackgroundColor="#FDC401">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Image x:Name="imgIntro" Source="Logoemp.png" HeightRequest="150" WidthRequest="150" VerticalOptions="CenterAndExpand"/>
+            <!--<Label Text="from" TextColor="#818183" HorizontalOptions="CenterAndExpand" FontSize="20"/>-->
+            <Label Text="" TextColor="Black" FontSize="22" HorizontalOptions="Center" FontAttributes="Bold"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

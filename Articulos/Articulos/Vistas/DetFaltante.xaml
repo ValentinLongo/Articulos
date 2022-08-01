@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                 x:Class="Ubicacion_Articulos.Vistas.DetFaltante"
+             Title="Detalle Faltantes"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.BindingContext>
+        <vm:VMFaltantes/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid BackgroundColor="White" RowDefinitions="auto, *">
+            <Frame BackgroundColor="#2196F3" HeightRequest="40" Padding="0" Margin="0" Grid.Row="0">
+                <Button BackgroundColor="#2196F3" ImageSource="flechaIzq.png" TextColor="White" WidthRequest="85" HeightRequest="40"
+                    HorizontalOptions="Start" CornerRadius="20" Padding="0" Margin="0" x:Name="btnVolver" Clicked="btnVolver_Clicked"/>
+            </Frame>
+            <Label x:Name="IdFaltante" IsVisible="false"/>
+            <StackLayout Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                </Grid>
+                <RefreshView x:Name="refresh" Refreshing="refresh_Refreshing" IsRefreshing="True">
+                    <ScrollView>
+                        <ListView x:Name="listaDetFalt" ItemsSource="{Binding Detfaltantes}" HasUnevenRows="True"
+                                  SeparatorVisibility="Default" ItemTapped="listaDetFalt_ItemTapped" Grid.Row="0">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItems>
+                                                    <SwipeItem Text="Eliminar" Command="{Binding Path= BindingContext.btnEliminarFaltante, Source={x:Reference listaDetFalt}}"
+                                                CommandParameter="{Binding .}"  x:Name="btnImgEliminarFaltante" Clicked="btnImgEliminarFaltante_Clicked" BackgroundColor="Red"/>
+                                                </SwipeItems>
+                                            </SwipeView.RightItems>
+                                            <Frame Padding="0">
+                                                <Grid Padding="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="100"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackLayout Grid.Column="0">
+                                                        <Label Grid.Column="0" Text="{Binding det_descri}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="Código: " FontSize="15" FontAttributes="Bold"/>
+                                                            <Label Text="{Binding codigo}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="Adicional: " FontSize="15" FontAttributes="Bold"/>
+                                                            <Label Text="{Binding det_adicional}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Horizontal">
+                                                            <Label Text="Cantidad: " FontSize="15" FontAttributes="Bold"/>
+                                                            <Label Text="{Binding det_cantidad}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" TextColor="Black"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal" Grid.Column="1" VerticalOptions="Center">
+                                                        <CheckBox x:Name="chkDetFaltante" Color="#2196F3" Scale="1.5"
+                                                          CheckedChanged="chkDetFaltante_CheckedChanged" IsChecked="{Binding det_check}"/>
+                                                        <Label Text="  "/>
+                                                        <ImageButton Source="foto.png" CommandParameter="{Binding .}" WidthRequest="35" HeightRequest="35"
+                                                                     Command="{Binding Path=BindingContext.btnImgDetFal, Source={x:Reference listaDetFalt}}"/>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </SwipeView>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollView>
+                </RefreshView>
+                <StackLayout Orientation="Horizontal" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Button Text="Continuar" x:Name="btnFinalizarFaltante" Clicked="btnFinalizarFaltante_Clicked"/>
+                    <Button x:Name="btnAgFaltantes" Text="Agregar Faltantes" Clicked="btnAgFaltantes_Clicked"/>
+                    <Button x:Name="btnFinalizarReg" Text="Finalizar" Clicked="btnFinalizarReg_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+            <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ubicacion_Articulos.Vistas.PedidoIP">
+    <ContentPage.Content>
+        <Frame Margin="10" CornerRadius="5">
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="1,0">
+                    <GradientStop Color="#BDBDBD" Offset="0.1"/>
+                    <GradientStop Color="#E3E3E3" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+            <StackLayout VerticalOptions="StartAndExpand">
+                <Image Source=""/>
+                <Entry x:Name="txtIPServer" 
+                       Placeholder="IP del Servidor" 
+                       TextColor="White" 
+                       FontSize="20"                         
+                       FontAttributes="Bold"/>
+                <Entry x:Name="txtNameDB"
+                       TextColor="White" 
+                       Placeholder="Nombre Base de Datos" 
+                       FontAttributes="Bold" 
+                       FontSize="20"/>
+                <Entry x:Name="terminal"
+                       TextColor="White"
+                       Placeholder="Ingrese Número Terminal"
+                       FontAttributes="Bold"
+                       FontSize="20"/>
+                <Button Text="Conectar" 
+                        BackgroundColor="Black" 
+                        x:Name="btnConectar" 
+                        Clicked="btnConectar_Clicked" 
+                        CornerRadius="10" 
+                        TextColor="White" 
+                        FontAttributes="Bold"/>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

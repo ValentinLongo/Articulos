@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                 xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+                 x:Class="Ubicacion_Articulos.Vistas.ListaStockFaltante"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                 Title="Stock">
+
+    <ContentPage.BindingContext>
+        <vm:VMFaltantes/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid >
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+                <Frame Grid.Row="0" Padding="0" BackgroundColor="#2196F3">
+                    <Label Text="Stock" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" FontSize="20" TextColor="White"/>
+                </Frame>
+                <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+                    <ListView Grid.Row="1" x:Name="ListaStock" ItemsSource="{Binding stock}" HasUnevenRows="True" SeparatorVisibility="Default" IsPullToRefreshEnabled="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame Padding="0">
+                                        <Grid Padding="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="70"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout Grid.Column="0">
+                                                <Label Grid.Column="0" Text="{Binding aux_descri}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Código: " FontSize="15" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding codigo}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Adicional: " FontSize="15" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding aux_adicional}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label Text="Cantidad: " FontSize="15" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding aux_cantidad}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" TextColor="Black"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Button ImageSource="menos.png" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White"
+                                            Command="{Binding Path= BindingContext.btnElimStock, Source={x:Reference ListaStock}}"
+                                            CommandParameter="{Binding .}" x:Name="btnEliminarStock" Clicked="btnEliminarStock_Clicked"/>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RefreshView>
+                <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Text="Continuar" x:Name="btnAceptar" Clicked="btnAceptar_Clicked"/>
+                    <Button Text="Finalizar" x:Name="btnFinalizar" Clicked="btnFinalizar_Clicked"/>
+                    <Entry x:Name="fal_codtex" IsVisible="false"/>
+                    <Entry x:Name="fal_codnum" IsVisible="false"/>
+                    <Entry x:Name="fal_adicional" IsVisible="false"/>
+                    <Entry x:Name="fal_usuID" IsVisible="false"/>
+                    <Entry x:Name="fal_descri" IsVisible="false"/>
+                    <Entry x:Name="fal_cant" IsVisible="false"/>
+                    <Entry x:Name="fal_idcliente" IsVisible="false"/>
+                    <Entry x:Name="fal_deposito" IsVisible="false"/>
+                    <Entry x:Name="fal_terminal" IsVisible="false"/>
+                </StackLayout>
+            </StackLayout>
+            <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

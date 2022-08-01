@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                 x:Class="Ubicacion_Articulos.Vistas.PopImagenFaltante">
+
+    <ContentPage.Content>
+        <Grid Margin="30,150,30,150" BackgroundColor="White">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Frame BorderColor="Black" Padding="50">
+                    <Image x:Name="imgArtFaltante" WidthRequest="300" HeightRequest="250"/>
+                </Frame>
+                <Label x:Name="txtCodTex" IsVisible="false"/>
+                <Label x:Name="txtCodNum" IsVisible="false"/>
+                <Label x:Name="txtAdicional" IsVisible="false"/>
+                <ListView x:Name="listaUbicaciones" ItemsSource="{Binding ubi}" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding ubicacion}"/>
+                                        <Label Text="      "/>
+                                        <Label Text="{Binding deposito}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="OK" x:Name="btnOk" Clicked="btnOk_Clicked" VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</popup:PopupPage>

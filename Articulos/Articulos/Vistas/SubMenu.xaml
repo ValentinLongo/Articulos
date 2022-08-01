@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+             x:Class="Ubicacion_Articulos.Vistas.SubMenu"
+             Title="Master">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Text="Ubicación Stock" TextColor="Black" x:Name="btnUbicacion" BackgroundColor="White" Image="loupe_.png" Clicked="btnUbicacion_Clicked"/>
+            <Button Text="Etiquetas" TextColor="Black" x:Name="btnEtiquetas" BackgroundColor="White" Image="Etiqueta_.png" Clicked="btnEtiquetas_Clicked"/>
+            <Button Text="Reposición de Mercadería" TextColor="Black" x:Name="btnFaltantes" BackgroundColor="White" Image="Folder.png" Clicked="btnFaltantes_Clicked"/>
+            <Button Text="Preparación de Pedidos" TextColor="Black" x:Name="btnPedidos" BackgroundColor="White" Image="Pedidos2.png" Clicked="btnPedidos_Clicked"/>
+            <Button Text="Configurar Conexión" TextColor="Black" x:Name="btnConf" BackgroundColor="White" Clicked="btnConf_Clicked" Image="Config.png" IsVisible="false"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

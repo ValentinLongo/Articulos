@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                 x:Class="Ubicacion_Articulos.Vistas.PopDescriEtiqueta">
+    
+    <ContentPage.Content>
+        <Grid Margin="30,250,30,250" BackgroundColor="White">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="¿Esta seguro que desea finalizar?" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Entry x:Name="txtDescriEti" Placeholder="Descripción (Obligatoria)" TextTransform="Uppercase"/>
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Button Text="Aceptar" x:Name="btnAceptar" Clicked="btnAceptar_Clicked"/>
+                    <Button Text="Cancelar" x:Name="btnCancelar" Clicked="btnCancelar_Clicked"/>
+                    <Entry x:Name="imp_codtex" IsVisible="false"/>
+                    <Entry x:Name="imp_codnum" IsVisible="false"/>
+                    <Entry x:Name="imp_adicional" IsVisible="false"/>
+                    <Entry x:Name="imp_descri" IsVisible="false"/>
+                    <Entry x:Name="imp_usuario" IsVisible="false"/>
+                    <Entry x:Name="imp_orden" IsVisible="false"/>
+                    <Entry x:Name="imp_terminal" IsVisible="false"/>
+                    <Entry x:Name="imp_cantimp" IsVisible="false"/>
+                    <Entry x:Name="userName" IsVisible="false"/>
+                    <Entry x:Name="userID" IsVisible="false"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</popup:PopupPage>

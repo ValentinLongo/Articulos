@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                 x:Class="Ubicacion_Articulos.Vistas.EditarUbicacion">
+
+    <ContentPage.BindingContext>
+        <vm:VMUbicaciones/>
+    </ContentPage.BindingContext>
+
+    <Frame VerticalOptions="Start" CornerRadius="20">
+        <Grid>
+            <BoxView CornerRadius="10" Color="White"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Entry Text="{Binding ubicacion.ubi_ubica1}" Placeholder="Depósito" Grid.Row="1" Grid.Column="0" x:Name="txtDeposito" MaxLength="3" TextChanged="txtDeposito_TextChanged" TextTransform="Uppercase"/>
+                    <Entry Text="{Binding ubicacion.ubi_ubica2}" Placeholder="Pasillo" Grid.Row="1" Grid.Column="1" x:Name="txtPasillo" MaxLength="3" TextTransform="Uppercase"/>
+                    <Entry Text="{Binding ubicacion.ubi_ubica3}" Placeholder="Fila" Grid.Row="1" Grid.Column="2" x:Name="txtFila" MaxLength="3" TextTransform="Uppercase"/>
+                    <Entry Text="{Binding ubicacion.ubi_ubica4}" Placeholder="Columna" Grid.Row="1" Grid.Column="3" x:Name="txtColumna" MaxLength="3" TextTransform="Uppercase"/>
+                    <StackLayout>
+                        <Entry Text="{Binding ubi_codigo}" x:Name="txtUbi_codigo" IsVisible="false"/>
+                        <Entry Text="{Binding ubi_deposito}" x:Name="txtUbi_deposito" IsVisible="false"/>
+                        <Entry x:Name="txtUbi_usumod" IsVisible="false"/>
+                        <Entry x:Name="txtCodTex" IsVisible="false"/>
+                        <Entry x:Name="txtCodNum" IsVisible="false"/>
+                        <Entry x:Name="txtAdicional" IsVisible="false"/>
+                        <Entry x:Name="txtUbi_predef" IsVisible="false"/>
+                    </StackLayout>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Entry Placeholder="Nombre Depósito" x:Name="Deposito" Grid.Row="0" Grid.Column="0" IsReadOnly="True"/>
+                    <!--<Picker x:Name="PickDepo" Grid.Column="0" Title="Nombre Depósito" SelectedIndex="{Binding dep_descri}"/>-->
+                    <StackLayout Orientation="Vertical" Grid.Row="1">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Predefinir: " HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <CheckBox Color="Black" IsChecked="{Binding }" x:Name="chkUbi_predef" CheckedChanged="chkUbi_predef_CheckedChanged"/>
+                            <!--<Button x:Name="btnAceptar" Text="Aceptar" Clicked="btnAceptar_Clicked"/>-->
+                        </StackLayout>
+                        <Button x:Name="btnGuardar" Text="Confirmar Cambios" Clicked="btnGuardar_Clicked"/>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+            <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+        </Grid>
+    </Frame>
+</ContentPage>

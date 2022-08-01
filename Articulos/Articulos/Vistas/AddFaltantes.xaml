@@ -1,0 +1,96 @@
+﻿
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo" 
+             xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+             x:Class="Ubicacion_Articulos.Vistas.AddFaltantes">
+
+    <ContentPage.BindingContext>
+        <vm:VMFaltantes/>
+    </ContentPage.BindingContext>
+
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Vertical">
+                    <Picker x:Name="picker" Title="Seleccione forma de busqueda" SelectedIndexChanged="picker_SelectedIndexChanged"/>
+                    <StackLayout Orientation="Horizontal">
+                        <CheckBox x:Name="CheckArtHabilitados" IsChecked="True" Color="Black"/>
+                        <Label Text="Articulos Habilitados" TextTransform="Uppercase" Margin="0,10"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Grid.Row="1">
+                    <Entry x:Name="txtArticulo" Placeholder="Busqueda por Descripción" Grid.Row="1" IsVisible="false" IsReadOnly="False" HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextTransform="Uppercase"/>
+                    <StackLayout Orientation="Horizontal"  Grid.Row="1">
+                        <Entry x:Name="txtUbica1" Placeholder="Deposito" IsVisible="false" MaxLength="3" HorizontalOptions="FillAndExpand" TextTransform="Uppercase" HorizontalTextAlignment="Center"/>
+                        <Entry x:Name="txtUbica2" Placeholder="Pasillo" IsVisible="false" MaxLength="3" HorizontalOptions="FillAndExpand" TextTransform="Uppercase" HorizontalTextAlignment="Center"/>
+                        <Entry x:Name="txtUbica3" Placeholder="Fila" IsVisible="false" MaxLength="3" HorizontalOptions="FillAndExpand" TextTransform="Uppercase" HorizontalTextAlignment="Center"/>
+                        <Entry x:Name="txtUbica4" Placeholder="Columna" IsVisible="false" MaxLength="3" HorizontalOptions="FillAndExpand" TextTransform="Uppercase" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Grid.Row="1">
+                        <Entry Placeholder="Codigo de Barras" IsVisible="false" x:Name="txtCodBarra" IsReadOnly="False" HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextTransform="Uppercase"/>
+                        <Button x:Name="btnCamara" ImageSource="Camara_Scanner.png" IsVisible="false" IsEnabled="True" Clicked="btnCamara_Clicked"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Grid.Row="1">
+                        <Entry Placeholder="Cod Fab" IsVisible="false" x:Name="txtCodTex" TextTransform="Uppercase"/>
+                        <Entry Placeholder="Codigo Numerico" IsVisible="false" x:Name="txtCodNum" HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextTransform="Uppercase"/>
+                    </StackLayout>
+                    <Entry x:Name="txtCodFabrica" Placeholder="Código de Fábrica" IsVisible="false" HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextTransform="Uppercase"/>
+                    <Entry Placeholder="Codigo Interno" Grid.Row="1" IsVisible="false" x:Name="txtCodigoInt" HorizontalOptions="FillAndExpand" ClearButtonVisibility="WhileEditing" TextTransform="Uppercase"/>
+                    <Button x:Name="btnBuscar" Text="Buscar" Clicked="btnBuscar_Clicked" BackgroundColor="#5484C5"/>
+                    <!--<Button Text="Lista de Stock" x:Name="btnMostrarListaStock" Clicked="btnMostrarListaStock_Clicked"/>-->
+                </StackLayout>
+                <Frame Grid.Row="2" Padding="0" BackgroundColor="#5484C5">
+                    <Grid Padding="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Descripcion" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20" Grid.Column="0" TextColor="White"/>
+
+                    </Grid>
+                </Frame>
+                <ListView x:Name="ListaFaltante" ItemsSource="{Binding Faltantes}" HasUnevenRows="True" Margin="5,0,0,0" SeparatorVisibility="Default" Grid.Row="3" ItemTapped="ListaFaltante_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="0" BorderColor="White" x:Name="ColorFila" SizeChanged="ColorFila_SizeChanged">
+                                    <Grid Padding="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Column="0">
+                                            <Label Text="{Binding art_descri}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="19" TextColor="Black"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Codigo: " FontSize="16" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Codigo}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="15" TextColor="Black"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Adicional: " FontSize="16" FontAttributes="Bold"/>
+                                                <Label Text="{Binding adi_descri}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="15" TextColor="Black"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Button Command="{Binding Path= BindingContext.agregarStock, Source={x:Reference ListaFaltante}}"
+                                            CommandParameter="{Binding .}" x:Name="btnAgEtiq" HorizontalOptions="Center" VerticalOptions="Center"
+                                            Grid.Column="1" ImageSource="mas.png" BackgroundColor="White"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

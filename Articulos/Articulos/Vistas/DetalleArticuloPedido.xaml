@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+             x:Class="Ubicacion_Articulos.Vistas.DetalleArticuloPedido">
+
+    <ContentPage.BindingContext>
+        <vm:VMDetalleArticuloPedido/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="Descripción" TextColor="Black" FontSize="20" Grid.Row="0"/>
+            <Entry x:Name="DescripcionArticulo" IsReadOnly="True" TextColor="Black" Grid.Row="1" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Adicional" x:Name="AdicionalArticulo" TextColor="#3d3b35" FontSize="17" Grid.Column="0" VerticalOptions="CenterAndExpand"/>
+                <Label Text="CodTex" x:Name="CodTex" TextColor="#3d3b35" FontSize="17" Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+            </Grid>
+            <StackLayout Orientation="Vertical" Grid.Row="3">
+                <Label Text="Ubicaciónes" TextColor="Black" FontSize="18"/>
+                <ListView x:Name="listaUbi" ItemsSource="{Binding ubi}" HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="0">
+                                    <Grid Padding="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding ubicacion}" Grid.Column="0" Padding="5,0" VerticalOptions="Center"/>
+                                        <Label Text="{Binding deposito}" Grid.Column="1" Padding="0" VerticalOptions="Center"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <StackLayout Grid.Row="4">
+                <Image x:Name="imgProducto" Margin="10" HeightRequest="300" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+
+            <Grid Grid.Row="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Horizontal" Grid.Row="0" Margin="0">
+                    <Label Text="Cantidad requerida:" TextColor="Black" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                    <Entry x:Name="Cantidad" WidthRequest="200" IsReadOnly="True"/>
+                </StackLayout>
+                <!--<StackLayout Orientation="Horizontal" Grid.Row="1" Margin="0">
+                    <Label Text="Cantidad:" TextColor="Black" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                    -->
+                <!--<Entry x:Name="Cantidadd" WidthRequest="200"/>-->
+                <!--
+                </StackLayout>-->
+                <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Reemplazar con otro articulo" x:Name="BtnUbi" Clicked="BtnUbi_Clicked" TextColor="White" BackgroundColor="#2196F3" WidthRequest="400" CornerRadius="20"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="2">
+                    <Label Text="Reemplazo:" TextColor="Black" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                    <!--<Label x:Name="ArticuloReemplazo" TextColor="Black" FontSize="20"/>-->
+                    <Entry x:Name="ArticuloReemplazo" IsReadOnly="True" WidthRequest="300"/>
+                    <Label x:Name="CodTexRe" IsVisible="false"/>
+                    <Label x:Name="CodNumRe" IsVisible="false"/>
+                    <Label x:Name="AdicionalRe" IsVisible="false"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="3">
+                    <Label Text="Adicional:" TextColor="Black" FontSize="17"/>
+                    <Label x:Name="AdicionalDescriRem" TextColor="#3d3b35" FontSize="17"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="4">
+                    <Label Text="Cantidad Preparada:" TextColor="Black" FontSize="20" VerticalOptions="CenterAndExpand"/>
+                    <Entry x:Name="Cantidadd" WidthRequest="200" Keyboard="Numeric"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="5" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Combinar con otro artículo" x:Name="Combinar" TextColor="White" BackgroundColor="#2196F3" WidthRequest="400" CornerRadius="20" Clicked="Combinar_Clicked"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="6" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Aceptar" x:Name="Aceptar" TextColor="White" BackgroundColor="#2196F3" WidthRequest="200" CornerRadius="20" Clicked="Aceptar_Clicked"/>
+                </StackLayout>
+            </Grid>
+
+
+            <StackLayout>
+                <Label x:Name="CodigoPedido" IsVisible="false"/>
+                <Label x:Name="IdArticulo" IsVisible="false"/>
+                <Label x:Name="CodigoArticulo" IsVisible="false"/>
+                <Label x:Name="CodNum" IsVisible="false"/>
+                <Label x:Name="CodAdi" IsVisible="false"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ubicacion_Articulos.Vistas.Globales.ValidarInternet"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
+             xmlns:local="clr-namespace:Ubicacion_Articulos.VistaModelo">
+
+    <ContentView.BindingContext>
+        <local:VMLogin/>
+    </ContentView.BindingContext>
+    <StackLayout BackgroundColor="White">
+        <lottie:AnimationView Animation="astronauta.json" AutoPlay="True" WidthRequest="300" HeightRequest="250"
+                              RepeatMode="Infinite" VerticalOptions="Center"/>
+        <Label Text="Sin Internet" FontSize="30" VerticalOptions="Center" VerticalTextAlignment="Center"
+               HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+    </StackLayout>
+</ContentView>

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ubicacion_Articulos.Vistas.ListaImprimirUbi"
+             xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+             Title="Imprimir Ubicaciones">
+
+    <ContentPage.BindingContext>
+        <vm:VMUbicaciones/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid HeightRequest="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ListView Grid.Row="0" x:Name="ListaEtiqueta" ItemsSource="{Binding etiqueta}" HasUnevenRows="True" SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0">
+                                <Grid Padding="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="70"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Label Grid.Column="0" Text="{Binding imp_descri}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Código: " FontSize="15" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Codigo}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Adicional: " FontSize="15" FontAttributes="Bold"/>
+                                            <Label Text="{Binding imp_adicional}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <!--<Button ImageSource="menos.png" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White"
+                                            Command="{Binding Path= BindingContext.btnElimUbic, Source={x:Reference ListaEtiqueta}}"
+                                            CommandParameter="{Binding .}"/>-->
+                                    <Button ImageSource="menos.png" x:Name="Eliminar" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White"
+                                            Clicked="Eliminar_Clicked"  Command="{Binding Path= BindingContext.btnElimUbic, Source={x:Reference ListaEtiqueta}}"
+                                            CommandParameter="{Binding .}"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End">
+                <Button x:Name="btnContinuar" Text="Continuar" Grid.Column="0" Clicked="btnContinuar_Clicked"/>
+                <Button x:Name="btnFinalizar"  Text="Finalizar" Grid.Column="1" Clicked="ButtonFinalizar_Clicked"/>
+                <Entry x:Name="imp_codtex" IsVisible="false"/>
+                <Entry x:Name="imp_codnum" IsVisible="false"/>
+                <Entry x:Name="imp_adicional" IsVisible="false"/>
+                <Entry x:Name="imp_orden" IsVisible="false"/>
+                <Entry x:Name="imp_usuario" IsVisible="false"/>
+                <Entry x:Name="imp_descri" IsVisible="false"/>
+                <Entry x:Name="imp_terminal" IsVisible="false"/>
+                <Entry x:Name="imp_cantimp" IsVisible="false"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

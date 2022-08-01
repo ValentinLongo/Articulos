@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo"
+             x:Class="Ubicacion_Articulos.Vistas.Pedidos"
+             Title="Preparacion de Pedidos">
+
+    <ContentPage.BindingContext>
+        <vm:VMPedidos/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Picker x:Name="PickerEstado" SelectedIndexChanged="PickerEstado_SelectedIndexChanged" Title="Seleccione Estado"></Picker>
+        <Label x:Name="numUsu" IsVisible="false"/>
+        <ListView x:Name="ListaPedidos" ItemsSource="{Binding Pedidos}" ItemTapped="ListaPedidos_ItemTapped" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="0">
+                            <Grid Padding="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <!--<ColumnDefinition Width="90"/>-->
+                                </Grid.ColumnDefinitions>
+                                <StackLayout  Grid.Row="0" Grid.Column="0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Cliente: " FontSize="15" FontAttributes="Bold" TextColor="Black"/>
+                                        <Label Text="{Binding Cliente}" VerticalOptions="Start" HorizontalOptions="Start" TextColor="Black"/>
+                                        <Label Text="{Binding IdPedido}" x:Name="PedidoLabel" IsVisible="false"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Fecha/Hora: " FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding FechaPedido}" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Nro Comprobante: " FontSize="16" FontAttributes="Bold"/>
+                                        <Label Text="{Binding NumeroComprobante}" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

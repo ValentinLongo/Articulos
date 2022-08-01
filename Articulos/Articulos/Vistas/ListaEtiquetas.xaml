@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="Ubicacion_Articulos.Vistas.ListaEtiquetas"
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:vm="clr-namespace:Ubicacion_Articulos.VistaModelo" 
+                 xmlns:globales="clr-namespace:Ubicacion_Articulos.Vistas.Globales"
+                Title="Lista Etiquetas">
+
+    <ContentPage.BindingContext>
+        <vm:VMUbicaciones/>
+    </ContentPage.BindingContext>
+
+    
+    <Grid BackgroundColor="White">
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+            </Grid>
+            <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+                <ListView Grid.Row="1" x:Name="ListaEtiqueta" ItemsSource="{Binding etiqueta}" HasUnevenRows="True" SeparatorVisibility="Default" IsPullToRefreshEnabled="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="0">
+                                    <Grid Padding="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout Grid.Column="0">
+                                            <Label Grid.Column="0" Text="{Binding imp_descri}" TextColor="Black" VerticalOptions="Start" HorizontalOptions="Start"/>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Código: " FontSize="15" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Codigo}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Adicional: " FontSize="15" FontAttributes="Bold"/>
+                                                <Label Text="{Binding imp_adicional}" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="0" FontSize="14" TextColor="Black"/>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="Cantidad de Etiquetas: " FontSize="15" FontAttributes="Bold"/>
+                                                <Label Text="{Binding imp_cantimp}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" TextColor="Black"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Button ImageSource="menos.png" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White"
+                                            Command="{Binding Path= BindingContext.btnElimEtiq, Source={x:Reference ListaEtiqueta}}"
+                                            CommandParameter="{Binding .}" x:Name="Eliminar" Clicked="Eliminar_Clicked"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </RefreshView>
+            <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+                <Button Text="Continuar" x:Name="btnAceptar" Clicked="btnAceptar_Clicked"/>
+                <Button Text="Finalizar" x:Name="btnFinalizar" Clicked="btnFinalizar_Clicked"/>
+                <Entry x:Name="imp_codtex" IsVisible="false"/>
+                <Entry x:Name="imp_codnum" IsVisible="false"/>
+                <Entry x:Name="imp_adicional" IsVisible="false"/>
+                <Entry x:Name="imp_orden" IsVisible="false"/>
+                <Entry x:Name="imp_usuario" IsVisible="false"/>
+                <Entry x:Name="imp_descri" IsVisible="false"/>
+                <Entry x:Name="imp_terminal" IsVisible="false"/>
+                <Entry x:Name="imp_cantimp" IsVisible="false"/>
+            </StackLayout>
+        </StackLayout>
+        <globales:ValidarInternet IsVisible="{Binding SinConexion}"/>
+    </Grid>
+</ContentPage>
